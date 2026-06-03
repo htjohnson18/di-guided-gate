@@ -115,3 +115,12 @@ One useful way to audition it:
 The logical next feature after a listening pass is lookahead.
 
 That means delaying the amp track slightly so gain reduction starts before the transient, which should make the gate feel cleaner on fast pick attacks. That work should be done in a separate pass because it needs a delay line plus correct host latency reporting via `setLatencySamples()`.
+
+## Future Roadmap
+
+The project is structured to grow from a functional utility into an intuitive, production-grade tracking tool. Upcoming milestones include:
+
+- [ ] **Lookahead Delay Line & Host Latency Compensation:** Implementing a circular ring buffer on the main audio bus to allow the sidechain detector to look ahead by a selectable window (e.g., 0–5ms). Includes registering exact sample delay back to the host DAW via `setLatencySamples()` to ensure perfect sample-accurate alignment.
+- [ ] **Sidechain Multi-Band Detection Filter:** Adding a configurable bandpass filter stage to the sidechain path using the `juce::dsp` module. This isolates detection to the primary string fundamental frequencies, ensuring that low-end palm mutes or high-frequency string handling don't introduce chattering.
+- [ ] **Dynamic "Sustain Protection" Logic:** Moving beyond linear hysteresis to a state-based tracking model. By calculating the ratio of peak-to-RMS energy, the plugin will distinguish between an intentional decaying note tail and an idle amp hiss floor, dynamically lengthening the release time for sustained chords.
+- [ ] **Visual Rolling Waveform & Gain-Reduction Timeline:** Designing a custom editor interface that plots the rectified sidechain DI envelope alongside a rolling real-time gain-reduction meter. This gives engineers a visual verification "score" of exactly what signal is being passed versus what noise is being suppressed.
