@@ -110,6 +110,20 @@ One useful way to audition it:
 3. Feed the clean DI into the plugin's sidechain bus.
 4. Adjust `Hold` and `Range` first, then fine-tune threshold and release by ear.
 
+## Connection Diagram
+
+```text
+Clean DI Track
+    |
+    +----------------------> Sidechain Input
+                               |
+                               v
+                         +------------------+
+Mic'd Amp Track -------> |  DI Guided Gate  | -------> Cleaned Amp Output
+      Main Input         |  envelope gate   |
+                         +------------------+
+```
+
 ## Future Roadmap
 
 The project is structured to grow from a functional utility into an intuitive, production-grade tracking tool. Upcoming milestones include:
