@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# CMake and generated build trees
+build/
+build-*/
+cmake-build/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+compile_commands.json
+
+# IDE files
+.idea/
+.vscode/
+*.xcodeproj
+*.xcworkspace
+
+# Plugin/build artefacts
+*.app
+*.component
+*.vst3
+*.a
+*.dylib
+*.so
+*.dll
