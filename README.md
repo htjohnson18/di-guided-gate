@@ -110,12 +110,6 @@ One useful way to audition it:
 3. Feed the clean DI into the plugin's sidechain bus.
 4. Adjust `Hold` and `Range` first, then fine-tune threshold and release by ear.
 
-## Next Step
-
-The logical next feature after a listening pass is lookahead.
-
-That means delaying the amp track slightly so gain reduction starts before the transient, which should make the gate feel cleaner on fast pick attacks. That work should be done in a separate pass because it needs a delay line plus correct host latency reporting via `setLatencySamples()`.
-
 ## Future Roadmap
 
 The project is structured to grow from a functional utility into an intuitive, production-grade tracking tool. Upcoming milestones include:
