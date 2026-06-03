@@ -46,6 +46,48 @@ The `CMakeLists.txt` in this repo expects JUCE CMake functions such as `juce_add
 1. add this folder into a JUCE-based superproject, or
 2. place it inside a JUCE checkout and add it with `add_subdirectory(...)`.
 
+### Recommended Local Setup
+
+Keep this repo standalone and point a small wrapper CMake project at your JUCE clone.
+
+For example, if you have:
+
+- `../JUCE-repo`
+- `../di-guided-gate`
+
+you can create a small parent project with a `CMakeLists.txt` like this:
+
+```cmake
+cmake_minimum_required(VERSION 3.22)
+project(DIGuidedGateDev)
+
+add_subdirectory(../JUCE-repo JUCE-build)
+add_subdirectory(../di-guided-gate DIGuidedGate-build)
+```
+
+Then configure and build from that wrapper project:
+
+```sh
+cmake -S . -B build
+cmake --build build --target DIGuidedGate_VST3 -j4
+```
+
+This is the cleanest setup for ongoing work because:
+
+- the plugin stays in its own public repo
+- JUCE stays in its own upstream clone
+- you can update either one independently
+
+### If You Want It Inside a JUCE Checkout
+
+If you prefer to work directly inside a JUCE clone, copy this folder into the JUCE tree and add it from the parent examples CMake file, for example:
+
+```cmake
+add_subdirectory(DIGuidedGate)
+```
+
+That is fine for local experimentation, but it is not the better long-term repo layout unless you plan to keep the plugin as part of a JUCE fork.
+
 Example configure/build flow:
 
 ```sh
