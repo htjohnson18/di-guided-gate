@@ -26,3 +26,7 @@ compile_commands.json
 *.dylib
 *.so
 *.dll
+
+# Keep the published example bundle if intentionally committed
+!dist/
+!dist/*.vst3
