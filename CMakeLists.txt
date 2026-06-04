@@ -15,8 +15,11 @@ juce_add_plugin(DIGuidedGate
     COPY_PLUGIN_AFTER_BUILD FALSE
     PLUGIN_MANUFACTURER_CODE TjAu
     PLUGIN_CODE DgGt
-    FORMATS AU VST3 Standalone
+    FORMATS AAX AU VST3 Standalone
     PRODUCT_NAME "DI Guided Gate")
+
+juce_add_binary_data(DIGuidedGateAssets SOURCES
+    Assets/BUZZ_KILL_STRAIGHT_LINE.png)
 
 target_sources(DIGuidedGate
     PRIVATE
@@ -31,6 +34,7 @@ target_compile_definitions(DIGuidedGate
 
 target_link_libraries(DIGuidedGate
     PRIVATE
+        DIGuidedGateAssets
         juce::juce_audio_utils
     PUBLIC
         juce::juce_recommended_config_flags

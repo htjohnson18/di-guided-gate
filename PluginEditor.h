@@ -15,8 +15,10 @@ private:
     using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
 
     void configureSlider (juce::Slider& slider, juce::Label& label, const juce::String& text);
+    void drawLogoBlock (juce::Graphics& g, juce::Rectangle<int> area);
 
     DIGuidedGateAudioProcessor& processorRef;
+    juce::Image popMachineLogo;
 
     juce::Label titleLabel;
     juce::Label subtitleLabel;

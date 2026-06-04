@@ -99,8 +99,51 @@ The built VST3 artifact is currently produced at:
 
 `/tmp/juce-di-gate-build/examples/CMake/DIGuidedGate/DIGuidedGate_artefacts/VST3/DI Guided Gate.vst3`
 
-If you enable the `AAX` format in `CMakeLists.txt`, building from source also requires the
-Avid AAX SDK to be installed and passed to CMake.
+The `AAX` format requires the Avid AAX SDK. JUCE versions that bundle the SDK use
+that copy; otherwise, configure JUCE with an external SDK before building AAX.
+
+## Local Distributables
+
+For local testing and sharing, package fresh macOS plugin bundles as ZIPs under `dist/`:
+
+- `DI Guided Gate.vst3.zip`
+- `DI Guided Gate.component.zip`
+- `DI Guided Gate.aaxplugin.zip`
+
+Branding is approved for this public repository. Prebuilt ZIPs are not included in
+this update; rebuild from the current source before testing or sharing, since older
+packages predate the latest DSP fixes.
+
+## Host Install Notes
+
+### Logic Pro
+
+Use `DI Guided Gate.component.zip`.
+
+1. Unzip the file.
+2. Copy `DI Guided Gate.component` to `~/Library/Audio/Plug-Ins/Components/` or `/Library/Audio/Plug-Ins/Components/`.
+3. Restart Logic.
+
+### Pro Tools
+
+Use `DI Guided Gate.aaxplugin.zip`.
+
+1. Unzip the file.
+2. Copy `DI Guided Gate.aaxplugin` to `/Library/Application Support/Avid/Audio/Plug-Ins/`.
+3. Restart Pro Tools and allow plugin scanning.
+
+Note: an iLok account may be required for AAX plugin testing, depending on the Pro Tools environment and local Avid/iLok setup.
+
+An iLok account alone does not make an unsigned AAX build loadable in standard
+Pro Tools. AAX signing or an appropriate developer testing environment is also required.
+
+### VST3 Hosts
+
+Use `DI Guided Gate.vst3.zip`.
+
+1. Unzip the file.
+2. Copy `DI Guided Gate.vst3` to `~/Library/Audio/Plug-Ins/VST3/` or `/Library/Audio/Plug-Ins/VST3/`.
+3. Restart the host and rescan plugins if needed.
 
 ## Test Flow
 
