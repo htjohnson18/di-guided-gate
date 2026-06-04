@@ -163,32 +163,32 @@ The DI track should feed the plugin sidechain. The amp track should feed the plu
 
 ### Discovery
 
-- [ ] Confirm target plugin framework and template, likely JUCE with CMake
-- [ ] Confirm target plugin formats: AU, VST3, standalone, or all
-- [ ] Confirm target DAW or test host sidechain support
-- [ ] Confirm desired behavior when sidechain is missing
-- [ ] Confirm whether prototype should be binary gate or soft expander
+- [x] Confirm target plugin framework and template — JUCE with CMake
+- [x] Confirm target plugin formats — AAX, AU, VST3, Standalone
+- [x] Confirm target DAW or test host sidechain support — Logic (AU), Pro Tools (AAX), VST3 hosts
+- [x] Confirm desired behavior when sidechain is missing — passes main audio unmodified
+- [x] Confirm whether prototype should be binary gate or soft expander — expander-style taper with hysteresis
 
 ### Phase 1 DSP Prototype
 
-- [ ] Configure main input/output and optional sidechain bus
-- [ ] Add threshold, attack, release, and floor/range parameters
-- [ ] Implement DI envelope follower
-- [ ] Apply sidechain-controlled attenuation to main amp input
-- [ ] Add denormal protection
-- [ ] Handle sidechain channel selection or summing
-- [ ] Recalculate coefficients on sample-rate and parameter changes
+- [x] Configure main input/output and optional sidechain bus
+- [x] Add threshold, attack, release, and floor/range parameters
+- [x] Implement DI envelope follower
+- [x] Apply sidechain-controlled attenuation to main amp input
+- [x] Add denormal protection
+- [x] Handle sidechain channel selection or summing (peak across channels)
+- [x] Recalculate coefficients on sample-rate and parameter changes
 
 ### Phase 1 UI
 
-- [ ] Add basic controls for threshold, attack, release, and floor/range
+- [x] Add basic controls for threshold, attack, release, floor/range, hold, and hysteresis
 - [ ] Add DI envelope meter
 - [ ] Add gain-reduction meter
 - [ ] Add sidechain-present indicator
 
 ### Verification
 
-- [ ] Build plugin locally
+- [x] Build plugin locally — VST3, AU, AAX artifacts confirmed
 - [ ] Load plugin in AudioPluginHost or target DAW
 - [ ] Route clean DI track to sidechain
 - [ ] Route high-gain amp track to main input
@@ -197,9 +197,9 @@ The DI track should feed the plugin sidechain. The amp track should feed the plu
 
 ### Follow-On Enhancements
 
-- [ ] Add hold control
-- [ ] Add hysteresis
-- [ ] Add soft-knee expander mode
+- [x] Add hold control
+- [x] Add hysteresis
+- [x] Add soft-knee expander mode
 - [ ] Add lookahead mode
 - [ ] Add preset management
 - [ ] Add polished guitar-focused UI after DSP behavior is validated

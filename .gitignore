@@ -27,6 +27,6 @@ compile_commands.json
 *.so
 *.dll
 
-# Keep the published example bundle if intentionally committed
+# Keep the dist/ folder and its zip archives if intentionally committed
 !dist/
-!dist/*.vst3
+!dist/*.zip

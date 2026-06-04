@@ -99,7 +99,8 @@ The built VST3 artifact is currently produced at:
 
 `/tmp/juce-di-gate-build/examples/CMake/DIGuidedGate/DIGuidedGate_artefacts/VST3/DI Guided Gate.vst3`
 
-This repo may also include a prebuilt macOS VST3 bundle under `dist/` for convenience.
+If you enable the `AAX` format in `CMakeLists.txt`, building from source also requires the
+Avid AAX SDK to be installed and passed to CMake.
 
 ## Test Flow
 
