@@ -114,7 +114,7 @@ cmake --build build --target DIGuidedGateTests -j4
 ctest --test-dir build/DIGuidedGate-build --output-on-failure
 ```
 
-These test silent startup and the expansion curve across Threshold/Range combinations.
+These cover silent startup, the expansion curve across Threshold/Range combinations, gate opening, Hold (including re-trigger), hysteresis, and passthrough when no sidechain is connected.
 For an in-tree JUCE build, use `build/examples/CMake/DIGuidedGate` as the test directory.
 
 ### Listening Tests
