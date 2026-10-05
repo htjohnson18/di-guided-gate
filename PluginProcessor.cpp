@@ -78,7 +78,7 @@ void DIGuidedGateAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
     juce::ignoreUnused (samplesPerBlock);
     currentSampleRate = sampleRate;
     envelope = 0.0f;
-    gainSmoothed = 1.0f;
+    gainSmoothed = juce::Decibels::decibelsToGain (apvts.getRawParameterValue ("range")->load());
     gateOpenState = false;
     holdSamplesRemaining = 0;
     cachedAttackMs = -1.0f;
@@ -171,8 +171,8 @@ void DIGuidedGateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     const auto closeThresholdGain = juce::Decibels::decibelsToGain (thresholdDb - hysteresisDb);
     const auto holdSamples = juce::roundToInt (holdMs * 0.001f * static_cast<float> (currentSampleRate));
 
-    // rangeDb is always <= thresholdDb; guard against degenerate equal case
-    const auto expanderRange = (thresholdDb > rangeDb) ? (thresholdDb - rangeDb) : 1.0f;
+    // Preserve the default taper slope without treating attenuation as a detector level.
+    constexpr auto expansionRatio = 3.5f;
 
     for (auto sample = 0; sample < buffer.getNumSamples(); ++sample)
     {
@@ -206,9 +206,7 @@ void DIGuidedGateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
             }
         }
 
-        // Expander taper: linear-in-dB from rangeDb (floor) up to 0 dB at threshold.
-        // When gate is open, target is unity; when closed, target tracks the envelope
-        // position between floor and threshold so the reduction breathes with the signal.
+        // Range limits the reduction; the expansion ratio sets its slope below threshold.
         float targetGain;
         if (gateOpenState)
         {
@@ -216,9 +214,10 @@ void DIGuidedGateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         }
         else
         {
-            const auto envelopeDb = juce::Decibels::gainToDecibels (envelope, -100.0f);
-            const auto t = juce::jlimit (0.0f, 1.0f, (envelopeDb - rangeDb) / expanderRange);
-            targetGain = juce::Decibels::decibelsToGain (rangeDb + t * (-rangeDb));
+            const auto envelopeDb = juce::Decibels::gainToDecibels (envelope, -160.0f);
+            const auto reductionDb = juce::jlimit (rangeDb, 0.0f,
+                                                  (envelopeDb - thresholdDb) * (expansionRatio - 1.0f));
+            targetGain = juce::Decibels::decibelsToGain (reductionDb);
         }
 
         const auto smoothingCoef = targetGain > gainSmoothed ? attackCoef : releaseCoef;

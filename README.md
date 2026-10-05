@@ -17,7 +17,7 @@ The current version includes:
 - Envelope-following detector driven by the sidechain bus
 - Threshold, range, attack, hold, release, and hysteresis controls
 - Hold logic to reduce chatter on note decay
-- Expander-style gain taper instead of a hard binary closed floor
+- Fixed 3.5:1 expander taper, with Range limiting maximum attenuation independently of Threshold
 - Minimal JUCE editor for fast listening tests
 
 ## Files
@@ -103,6 +103,21 @@ If you enable the `AAX` format in `CMakeLists.txt`, building from source also re
 Avid AAX SDK to be installed and passed to CMake.
 
 ## Test Flow
+
+### Processor Regression Tests
+
+For the recommended wrapper project above, enable and run the optional tests:
+
+```sh
+cmake -S . -B build -DDIGUIDEDGATE_BUILD_TESTS=ON
+cmake --build build --target DIGuidedGateTests -j4
+ctest --test-dir build/DIGuidedGate-build --output-on-failure
+```
+
+These test silent startup and the expansion curve across Threshold/Range combinations.
+For an in-tree JUCE build, use `build/examples/CMake/DIGuidedGate` as the test directory.
+
+### Listening Tests
 
 One useful way to audition it:
 

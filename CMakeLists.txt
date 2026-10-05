@@ -36,3 +36,18 @@ target_link_libraries(DIGuidedGate
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags)
+
+option(DIGUIDEDGATE_BUILD_TESTS "Build processor regression tests" OFF)
+
+if(DIGUIDEDGATE_BUILD_TESTS)
+    enable_testing()
+    add_executable(DIGuidedGateTests Tests/ProcessorTests.cpp)
+    target_compile_features(DIGuidedGateTests PRIVATE cxx_std_17)
+    target_include_directories(DIGuidedGateTests PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}"
+        $<TARGET_PROPERTY:DIGuidedGate,INCLUDE_DIRECTORIES>)
+    target_compile_definitions(DIGuidedGateTests PRIVATE
+        $<TARGET_PROPERTY:DIGuidedGate,COMPILE_DEFINITIONS>)
+    target_link_libraries(DIGuidedGateTests PRIVATE DIGuidedGate)
+    add_test(NAME DIGuidedGateProcessor COMMAND DIGuidedGateTests)
+endif()
